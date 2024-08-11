@@ -1,7 +1,6 @@
 var options = {
   env: 'AutodeskProduction',
   getAccessToken: function(onGetAccessToken) {
-    // Replace with your logic to obtain an access token
     var accessToken = 'YOUR_ACCESS_TOKEN';
     var expireTimeSeconds = 3600;
     onGetAccessToken(accessToken, expireTimeSeconds);
