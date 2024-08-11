@@ -1,0 +1,29 @@
+/* Set the body and html to take up the full height of the viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light gray background for the page */
+}
+
+/* Style the container for the viewer */
+#forgeViewer {
+    width: 100%; /* Make the viewer take up the full width */
+    height: 100vh; /* Make the viewer take up the full height of the viewport */
+    background-color: #fff; /* White background for the viewer */
+    border: 1px solid #ccc; /* Light gray border around the viewer */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a slight shadow for depth */
+}
+
+/* Add some padding around the page content if needed */
+.container {
+    padding: 20px;
+}
+
+/* Example for centering text or additional content on the page */
+.centered-text {
+    text-align: center;
+    margin-top: 20px;
+    color: #333; /* Darker gray for text */
+}
+
