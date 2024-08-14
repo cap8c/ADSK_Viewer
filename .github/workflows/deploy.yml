@@ -3,7 +3,7 @@ name: Deploy Autodesk Viewer
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to the main branch
+      - main
 
 jobs:
   build:
@@ -13,12 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Replace token in app.js
+      - name: Replace token and URN in app.js
         run: |
           sed -i 's/YOUR_ACCESS_TOKEN/${{ secrets.FORGE_ACCESS_TOKEN }}/' app.js
+          sed -i 's/YOUR_URN_ID/dXJuOmFkc2sud2lwLmZvcmdlLmFwaS5jb20vc2FtcGxlLnJ2dA/' app.js  # Replace with your actual URN if known, or keep this sample
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # Use the root directory or your specific build directory
+          publish_dir: ./  # Adjust if necessary
