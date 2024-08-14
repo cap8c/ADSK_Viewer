@@ -4,22 +4,53 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no" />
     <meta charset="utf-8">
 
-    <!-- The Viewer CSS -->
-    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.min.css" type="text/css">
+    <!-- Autodesk Forge Viewer CSS -->
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css" type="text/css">
+    
+    <!-- Autodesk Forge Viewer JavaScript -->
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
 
-    <!-- Developer CSS -->
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+        }
+        #forgeViewer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background-color: #F0F8FF;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- The Viewer will be instantiated here -->
-    <div id="MyViewerDiv"></div>
+    <!-- Viewer Container -->
+    <div id="forgeViewer"></div>
 
-    <!-- The Viewer JS -->
-    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/viewer3D.min.js"></script>
+    <!-- Initialization Script -->
+    <script>
+        var options = {
+            env: 'AutodeskProduction',
+            accessToken: 'YOUR_ACCESS_TOKEN'  // Replace this with the actual token
+        };
 
-    <!-- Developer JS -->
-    <script src="app.js"></script>
+        Autodesk.Viewing.Initializer(options, function onInitialized() {
+            var viewerDiv = document.getElementById('forgeViewer');
+            var viewer = new Autodesk.Viewing.GuiViewer3D(viewerDiv);
+            viewer.start();
 
+            // Use the Autodesk-provided sample URN
+            var documentId = 'urn:dXJuOmFkc2sud2lwLmZvcmdlLmFwaS5jb20vc2FtcGxlLnJ2dA';
+
+            Autodesk.Viewing.Document.load(documentId, function (doc) {
+                var viewables = doc.getRoot().getDefaultGeometry();
+                viewer.loadDocumentNode(doc, viewables).then(function() {
+                    console.log('Model loaded successfully!');
+                });
+            }, function (errorMsg) {
+                console.error('Error loading document:', errorMsg);
+            });
+        });
+    </script>
 </body>
 </html>
