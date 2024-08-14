@@ -1,0 +1,24 @@
+name: Deploy Autodesk Viewer
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Replace token in app.js
+        run: |
+          sed -i 's/YOUR_ACCESS_TOKEN/${{ secrets.FORGE_ACCESS_TOKEN }}/' app.js
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./  # Use the root directory or your specific build directory
