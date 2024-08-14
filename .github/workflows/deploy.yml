@@ -3,7 +3,7 @@ name: Deploy Autodesk Viewer
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to the main branch
+      - main
 
 jobs:
   build:
@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Reset git state
+        run: |
+          git reset --hard
+          git clean -fdx
+
       - name: Replace token in app.js
         run: |
           sed -i 's/YOUR_ACCESS_TOKEN/${{ secrets.FORGE_ACCESS_TOKEN }}/' app.js
@@ -21,4 +26,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # Adjust if necessary
+          publish_dir: ./  # Ensure this directory is correct
